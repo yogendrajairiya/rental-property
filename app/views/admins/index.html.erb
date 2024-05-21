@@ -1,0 +1,7 @@
+<% if current_user.role == "admin" %>
+  <h1 style="text-align:center">Admin's Page</h1>
+    <%= render "posts/post", post: @posts %>        
+<% else %>
+  <h1>Yor are Not Admin</h1>
+  <h4>You can't aceess this Page</h4>
+<% end %>

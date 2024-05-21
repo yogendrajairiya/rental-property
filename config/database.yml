@@ -1,0 +1,31 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  username: postgres
+  password: 123456
+  # pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: rental-property_development
+  adapter: postgresql
+  username: postgres
+  password: 123456
+  host: localhost
+  port: 5432
+  
+test:
+  <<: *default
+  database: rental-property_test
+  username: postgres
+  password: 123456
+
+
+production:
+  <<: *default
+  database: rental-property_production
+  username: postgres
+  password: 123456
+
+
+

@@ -1,0 +1,31 @@
+<h1 style= "text-align: center; background-color: grey;">Property Posts</h1>
+<% if current_user.role == "owner" || current_user.role == "admin" %>
+<%= "Create a New Post: " %>
+  <%= link_to "Create Now", new_post_path%>
+<% end %> 
+<ul>
+  <% post.each do |p| %>
+    <li>
+      <h3> <%= "For" %> <strong><%=  p.property_status %></strong><br></h3>
+        <%= "Owner-:" %> <strong><%=  p.owner_name %></strong><br>
+        <% if p.images.attached? %>
+          <% p.images.each do |multiimages| %>
+          <%= image_tag(multiimages,  :size => "300x200")  %>
+          <% end %>
+          <%end%><br>
+      <%= "Post date : " %> <strong><%=p.created_at.strftime("%d-%B-%Y")%></strong>
+    </li>
+    <%= " Description -:" %> <strong><%=p.description%></strong>
+    <%= link_to "read more...", p %><br><br>
+    <% if current_user.role ==  "admin" %>
+      <h3> <%= "Status : " %> <strong><%= link_to p.status, p %></strong><br></h3>
+      <%= button_to "approved", approve_post_post_path(p.id), { :method => :put } %>
+      <%= button_to "reject", reject_post_post_path(p.id), { :method => :put } %>
+    <%end%>
+    <% if current_user.role ==  "user" %>
+      <%= button_to "Contact Request by Gmail", send_mail_post_path(p), { :method => :get } %>
+      <%= button_to "Cancel Request", send_mail_post_path(p), { :method => :get } %><br>
+    <%end%>
+  <% end %>
+</ul>
+            
